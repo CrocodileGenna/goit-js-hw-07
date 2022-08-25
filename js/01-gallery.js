@@ -3,28 +3,29 @@ import { galleryItems } from "./gallery-items.js";
 
 console.log(galleryItems);
 
-const inGallery = document.querySelector(`.gallery`);
+const imgConteiner = document.querySelector(".gallery");
 
-const objectPhoto = (galleryItems) => {
+const creatItem = (galleryItems) => {
   return galleryItems
     .map(({ preview, original, description }) => {
       return `
-    <div class="gallery__item">
-    <a class="gallery__link" href="${original}">
-    <img class="gallery__image"
-        src="${preview}"
-        data-source="${original}"
-        alt="${description}"
-        />
-    </a>
-    </div>`;
+            <div class="gallery__item">
+                <a class="gallery__link" href="${original}">
+                <img
+                    class="gallery__image"
+                    src="${preview}"
+                    data-source="${original}"
+                    alt="${description}"
+                />
+                </a>
+            </div>`;
     })
-    .join(" ");
+    .join("");
 };
 
-inGallery.insertAdjacentHTML("beforeend", objectPhoto(galleryItems));
+imgConteiner.insertAdjacentHTML("beforeend", creatItem(galleryItems));
 
-inGallery.addEventListener("clock", focusPhoto);
+imgConteiner.addEventListener("click", openImg);
 
 function openImg(e) {
   e.preventDefault();
@@ -39,7 +40,7 @@ function openImg(e) {
 `);
 
   instance.show();
-  inGallery.addEventListener("keydown", escapeFunction);
+  imgConteiner.addEventListener("keydown", escapeFunction);
   function escapeFunction(e) {
     if (e.code !== "Escape") {
       return;
